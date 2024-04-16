@@ -15,12 +15,12 @@ class Department extends Model
     }
 
     public function childs(){
-        $childs = User::where("parent_id", $this->id)->get();
+        $childs = Department::where("parent_id", $this->id)->get();
         return $childs;
     }
 
     public function parent(){
-        $parent = User::where("id", $this->parent_id)->get();
+        $parent = Department::where("id", $this->parent_id)->get();
         return $parent;
     }
 

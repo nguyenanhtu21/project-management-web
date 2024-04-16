@@ -50,7 +50,34 @@
             @yield('main')
         </div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+</body>
+<script class="">
+    const modals = document.querySelectorAll('.modal');
+    const btnAdds = document.querySelectorAll('.btn-add-department');
+    const btnCancel = document.getElementById('btn-cancel-modal');
+
+    // Modern Event Listener Attachment (recommended)
+    btnAdds.forEach(btnAdd => {
+        btnAdd.addEventListener('click', function() {
+            modals.forEach(modal=>{
+                modal.style.display='flex';
+            });
+        });
+    });
+
+
+
+    // Alternative Event Listener Attachment (compatible with older browsers)
+    // btnAdd.onclick = function() {
+    //   modal.style.display = 'flex';
+    // };
+
+    // Optional: Event Listener for Hiding the Modal (using btnCancel)
+    btnCancel.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
     </script>
     <script>
@@ -59,34 +86,4 @@
     <script>
     new MultiSelectTag('roles-update')
     </script>
-    <script>
-    const selectRowCheckBox = document.getElementById('select-row-check');
-    const childRows = document.querySelectorAll('.child-row');
-    const selectChildRowCheckBoxs = document.querySelectorAll('.select-child-row-checkbox');
-
-    selectRowCheckBox.addEventListener('change', function() {
-        selectChildRowCheckBoxs.forEach(selectChildRowCheckBox => {
-            if (selectRowCheckBox.checked) {
-                selectChildRowCheckBox.checked = true;
-            } else {
-                selectChildRowCheckBox.checked = false;
-            }
-        });
-
-    });
-
-    const modal = document.getElementById('modal');
-    const btnAdd = document.getElementById('btn-add-department');
-    const btnCancel = document.getElementById('btn-cancel-modal');
-
-    btnAdd.onclick = function() {
-        modal.style.display = 'flex';
-    }
-
-    btnCancel.onclick = function() {
-        modal.style.display = 'none';
-    }
-    </script>
-</body>
-
 </html>

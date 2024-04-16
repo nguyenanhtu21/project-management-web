@@ -47,68 +47,69 @@
             <thead>
                 <tr>
                     <th scope="col">
-                        <button class="btn btn-info text-white" id="btn-add-department">Thêm mới</button>
+                        <button class="btn btn-info text-white btn-add-department" id="btn-add-department">Thêm
+                            mới</button>
                     </th>
                     <th scope="col">Thao tác</th>
-                    <th scope="col">Code</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Mã phòng ban</th>
+                    <th scope="col">Tên phòng ban</th>
                 </tr>
             </thead>
             <tbody>
-                <tr id="parent-row">
-                    <td>
-                        <div class="checkbox-wrapper-46">
-                            <input class="inp-cbx" id="select-row-check" type="checkbox" />
-                            <label class="cbx" for="select-row-check"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="" class="btn btn-info text-white"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                    <td>Globits</td>
-                    <td>Globits</td>
-                </tr>
-                <tr class="child-row">
-                    <td>
-                        <div class="checkbox-wrapper-46 ms-3">
-                            <input class="inp-cbx select-child-row-checkbox" id="cbx-46" type="checkbox" />
-                            <label class="cbx" for="cbx-46"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="" class="btn btn-info text-white"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                    <td class="">Child Code</td>
-                    <td class="">Child Name</td>
-                </tr>
-                <tr class="child-row">
-                    <td>
-                        <div class="checkbox-wrapper-46 ms-3">
-                            <input class="inp-cbx select-child-row-checkbox" id="cbx-46" type="checkbox" />
-                            <label class="cbx" for="cbx-46"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg>
-                            </label>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="" class="btn btn-info text-white"><i class="bi bi-pencil-fill"></i></a>
-                        <a href="" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
-                    </td>
-                    <td class="">Child Code 1</td>
-                    <td class="">Child Name 1</td>
-                </tr>
+                @foreach($company->departments as $department)
+                @if($department->parent_id===null)
+                    <tr class="parent-row">
+                        <td class="">
+                            <i class="fas fa-angle-right"></i>
+                            <input type="checkbox" class="">
+                        </td>
+                        <td class="">
+                            <a href="/dashboard/department/edit/{{$department->id}}" class="text-decoration-none me-2">
+                                <i class="bi bi-pencil-fill text-info fs-5"></i>
+                            </a>
+                            <a href="/dashboard/department/delete/{{$department->id}}" class="text-decoration-none">
+                                <i class="bi bi-trash-fill text-warning fs-4"></i>
+                            </a>
+                        </td>
+                        <td>{{$department->code}}</td>
+                        <td>{{$department->name}}</td>
+                    </tr>
+                @endif
+                    @foreach($department->childs() as $child)
+                        <tr class="row-child">
+                                <td class="">
+                                <input type="checkbox" class="ms-4">
+                            </td>
+                            <td class="">
+                                <a href="/dashboard/department/edit/{{$child->id}}" class="text-decoration-none me-2">
+                                    <i class="bi bi-pencil-fill text-info fs-5"></i>
+                                </a>
+                                <a href="/dashboard/department/delete/{{$child->id}}" class="text-decoration-none">
+                                    <i class="bi bi-trash-fill text-warning fs-4"></i>
+                                </a>
+                            </td>
+                            <td>{{$child->code}}</td>
+                            <td>{{$child->name}}</td>
+                        </tr>
+                        @foreach($child->childs() as $grandChild)
+                            <tr class="row-grand-child">
+                                <td class="">
+                                    <input type="checkbox" class="ms-5">
+                                </td>
+                                <td class="">
+                                    <a href="/dashboard/department/edit/{{$grandChild->id}}" class="text-decoration-none me-2">
+                                        <i class="bi bi-pencil-fill text-info fs-5"></i>
+                                    </a>
+                                    <a href="/dashboard/department/delete/{{$grandChild->id}}" class="text-decoration-none">
+                                        <i class="bi bi-trash-fill text-warning fs-4"></i>
+                                    </a>
+                                </td>
+                                <td>{{$grandChild->code}}</td>
+                                <td>{{$grandChild->name}}</td>
+                            </tr>                 
+                        @endforeach
+                    @endforeach
+            @endforeach
             </tbody>
         </table>
     </div>

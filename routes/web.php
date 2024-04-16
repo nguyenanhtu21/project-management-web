@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
+use App\Models\Department;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +47,14 @@ Route::prefix("/dashboard")->group(function () {
         Route::post('/store','store');
         Route::get('/edit/{id}','edit');
         Route::post('/update/{id}','update');
+        Route::get('/delete/{id}','destroy');
+
+        Route::prefix('/{id}/department')->group(function(){
+            Route::post('/add','addDepartment');
+        });
+    });
+
+    Route::prefix('/department')->controller(DepartmentController::class)->group(function(){
         Route::get('/delete/{id}','destroy');
     });
 });

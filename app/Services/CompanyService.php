@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Services;
+use App\Models\Department;
 use App\Repositories\CompanyRepository;
 use App\Models\Company;
+use App\Repositories\DepartmentRepository;
 
 class CompanyService{
     private $companyRepository;
-    public function __construct(CompanyRepository $companyRepository){
+    private $departmentRepository;
+    public function __construct(CompanyRepository $companyRepository, DepartmentRepository $departmentRepository){
         $this->companyRepository = $companyRepository;
+        $this->departmentRepository = $departmentRepository;
     }
 
     public function getAll(){
@@ -32,6 +36,20 @@ class CompanyService{
         $company->code = $data['code'];
         $company->address = $data['address'];
         $this->companyRepository->save($company);
+    }
+
+    public function addDepartment(array $data, $id){
+        $company = $this->companyRepository->findById($id);
+        $department = new Department();
+        $department->code = $data['code'];
+        $department->name = $data['name'];
+        if(isset($data['parent_id'])){
+            $department->parent_id = $data['parent_id'];
+        }else{
+            $department->parent_id = null;
+        }
+        $department->company_id = $company->id;
+        $this->departmentRepository->save($department);
     }
 
     public function delete($id){

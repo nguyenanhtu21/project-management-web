@@ -42,4 +42,13 @@ class CompanyController extends Controller
         $this->companyService->delete($id);
         return redirect()->back();
     }
+
+    public function addDepartment(Request $request,$id){
+        $department = $request->all();
+        if(!isset($department['parent_id'])){
+            $department['parent_id'] = null;
+        }
+        $this->companyService->addDepartment($request->all(),$id);
+        return redirect()->back();
+    }
 }
