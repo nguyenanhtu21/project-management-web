@@ -22,7 +22,11 @@ class UserService{
             $user = new User();
             $user->email = $userData['email'];
             $user->password = $userData['password'];
-            $user->is_active = $userData['is_active'];
+            if(!isset($userData['is_active'])){
+                $userData['is_active']=0;
+            }else{
+                $user->is_active = $userData['is_active'];
+            }
             $this->userRepository->save($user);
 
             $person = new Person();
@@ -53,7 +57,12 @@ class UserService{
             if(isset($userData['password'])){
                 $user->password = $userData['password'];
             }
-            $user->is_active = $userData['is_active'];
+            if(!isset($userData['is_active'])){
+                $userData['is_active']=0;
+                $user->is_active = $userData['is_active'];
+            }else{
+                $user->is_active = $userData['is_active'];
+            }
             $this->userRepository->save($user);
 
             $person = new Person();

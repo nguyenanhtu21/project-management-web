@@ -51,4 +51,9 @@ class CompanyController extends Controller
         $this->companyService->addDepartment($request->all(),$id);
         return redirect()->back();
     }
+
+    public function getAllPersons(Request $request){
+        $persons['persons'] = $this->companyService->getAllPersons($request->company_id);
+        return response()->json($persons);
+    }
 }

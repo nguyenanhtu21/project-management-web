@@ -32,9 +32,9 @@
                 <div class="form-group mb-3">
                     <label class="">Phân quyền</label>
                     <select class="form-select mb-3" id="roles" name="role_id[]" multiple>
-                       @foreach($roles as $role)
-                       <option value="{{$role->id}}">{{$role->role_name}}</option>
-                       @endforeach
+                        @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->role_name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group mb-3">
@@ -75,7 +75,8 @@
                 </div>
             </div>
             <div class="form-group d-flex justify-content-center">
-                <input onclick="getSelectedValues()" type="submit" class="btn text-white col-1 mt-2" style="background-color: #08c4c4;" value="Lưu">
+                <input onclick="getSelectedValues()" type="submit" class="btn text-white col-1 mt-2"
+                    style="background-color: #08c4c4;" value="Lưu">
             </div>
         </form>
     </div>

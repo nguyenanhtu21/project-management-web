@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Models\Department;
@@ -48,13 +49,22 @@ Route::prefix("/dashboard")->group(function () {
         Route::get('/edit/{id}','edit');
         Route::post('/update/{id}','update');
         Route::get('/delete/{id}','destroy');
-
+        Route::post('/getAllPersons','getAllPersons')->name('company.getPersons');
         Route::prefix('/{id}/department')->group(function(){
             Route::post('/add','addDepartment');
         });
     });
 
     Route::prefix('/department')->controller(DepartmentController::class)->group(function(){
+        Route::get('/delete/{id}','destroy');
+    });
+
+    Route::prefix('/project')->controller(ProjectController::class)->group(function(){
+        Route::get('/','index');
+        Route::get('/create','create');
+        Route::post('/store','store');
+        Route::get('/edit/{id}','edit');
+        Route::post('/update/{id}','update');
         Route::get('/delete/{id}','destroy');
     });
 });

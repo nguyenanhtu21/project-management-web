@@ -56,6 +56,10 @@ class CompanyService{
         $this->companyRepository->delete($id);
     }
 
+    public function getAllPersons($id){
+        return $this->companyRepository->getAllPersons($id);
+    }
+
     public function findById($id){
         return $this->companyRepository->findById($id);
     }

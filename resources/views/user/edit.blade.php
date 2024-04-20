@@ -38,13 +38,13 @@
                     <select class="form-select mb-3" id="roles-update" name="role_id[]" multiple>
                         @foreach($roles as $role)
                         @php
-                        $selected = '';
-                        foreach($user->roles as $userRole){
-                        if($role->role_name == $userRole->role_name){
-                        $selected = 'selected';
-                        break;
-                        }
-                        }
+                            $selected = '';
+                            foreach($user->roles as $userRole){
+                                if($role->role_name == $userRole->role_name){
+                                    $selected = 'selected';
+                                    break;
+                                }
+                            }
                         @endphp
                         <option value="{{$role->id}}" {{$selected}}>{{$role->role_name}}</option>
                         @endforeach

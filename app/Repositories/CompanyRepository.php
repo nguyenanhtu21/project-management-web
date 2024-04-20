@@ -28,5 +28,11 @@ class CompanyRepository{
         return Company::where('code',$code)->exists();
     }
 
+    public function getAllPersons($id){
+        $company = Company::find($id);
+        $persons = $company->persons()->get();
+        return $persons;
+    }
+
 
 }

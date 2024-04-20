@@ -32,9 +32,7 @@ class UserController extends Controller
 
     public function store(UserRequest $userRequest, PersonRequest $personRequest){
         try{
-            $userData = $userRequest->only('email', 'password', 'is_active', 'role_id');
-            $personData = $personRequest->only('full_name','birthdate','gender','address','phone_number', 'company_id');
-            $this->userService->create($userData, $personData);
+            $this->userService->create($userRequest->all(), $personRequest->all());
             return redirect('/dashboard/user');
         }catch(\Exception $e){
             return redirect()->back()->with('error', $e->getMessage());
@@ -49,13 +47,8 @@ class UserController extends Controller
     }
 
     public function update($id, UserRequest $userRequest, PersonRequest $personRequest){
-        if ($userRequest->filled('password')) {
-            $userData['password'] = bcrypt($userRequest->password);
-            $userData = $userRequest->only('email', 'password', 'is_active','role_id');
-        }else{
-            $userData = $userRequest->only('email','is_active','role_id');
-        }
-        $personData = $personRequest->only('full_name','birthdate','gender','address','phone_number','company_id');
+        $userData = $userRequest->only('email', 'password', 'is_active', 'role_id');
+        $personData = $personRequest->only('full_name', 'birthdate', 'gender', 'address', 'company_id', 'phone_number');
         $this->userService->update($id, $userData, $personData);
         return redirect('/dashboard/user');
     }
